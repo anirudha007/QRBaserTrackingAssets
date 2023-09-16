@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LERC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: auto}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	
+	.navbar_menu{
+		display:none;
+	}
+	#date{
+		color:#fff;
+		font-size:20px;
+		padding-top:10px;
+	}
+	footer{
+		position: fixed;
+		width: 100%;
+		bottom: 0px;
+		left: 0px;
+	}
+	footer p{
+		text-align: left;
+		margin: 0px;
+	}
+	#f1,#f2,.panel_error{
+		display:none;
+	}
+	body{
+		padding-bottom:50px;
+	}
+  </style>
+  <!-- <script>
+	const confirmAction = () => {
+		const response = confirm("Are you sure you want to do that?");
+
+		if (response) {
+			alert("Ok was pressed");
+		} else {
+			alert("Cancel was pressed");
+		}
+	}
+</script> -->
+</head>
+<body>
+	<!-- <script>confirmAction();</script> -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">LERC</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar_menu">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+			<!--<a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>-->
+			<p id="date"></p>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      &nbsp;
+    </div>
+    <div class="col-sm-8 text-left"> 
+		  <br/><br/>
+		  <input id="paa" value={{UID}}>
+		  <br/><br/>
+		  <script>
+			var paa = document.getElementById("paa").value;
+			//alert(paa)
+		</script>
+		<div class="form-popup">
+			<h2>Do you want to purchasse?</h2>
+			<a href="/datatable" class="btn btn-info" role="button">yes</a>
+			<!-- <button type ="button">yes</button> -->
+			<button type ="button" >no</button>
+		</div>
+		<form id="f1" name="f1">
+			<h2 class="text-center">Please Enter Form Details</h2>
+			<br/><br/>
+			<div class="form-group">
+				<label for="mobile_number">Mobile No.:&nbsp;&nbsp;&nbsp;&nbsp;<span class="mob_error"></span></label>
+				<input type="number" class="form-control" min="0" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="mobile_number">
+			</div>
+			<div class="form-group text-right">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+		<form id="f2" name="f2">
+			<h2 class="text-center">Mobile No. - <span id="m_number"></span>&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="javascript:location.href='index.html'" class="btn btn-primary edit_mobile">Edit</button></h2>
+			<h2 class="text-center">Please Validate Mobile No.</h2>
+			<br/><br/>
+			<div class="form-group">
+				<label for="otp">Enter OTP:</label>
+				<input type="number" class="form-control" min="0" maxlength="6" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="otp">
+			</div>
+			<div class="form-group text-right">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+    </div>
+    <div class="col-sm-2 sidenav">
+      &nbsp;
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>ORG Branding</p>
+</footer>
+
+<!-- Modal -->
+  <div class="modal fade" id="register_success" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+          <p>Your Hosepipe Has Been Registered Successfully.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal -->
+ 
+ <!-- Modal -->
+  <div class="modal fade" id="register_fail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+          <p>Please Try With a Valid OTP.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ <!-- Modal -->
+<script>
+	/*n =  new Date();
+	y = n.getFullYear();
+	m = n.getMonth() + 1;
+	d = n.getDate();
+	document.getElementById("date").innerHTML = m + "/" + d + "/" + y;*/
+	
+	var d = new Date();
+    var date = d.getDate();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var monthArr = ["January", "February","March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    month = monthArr[month];
+    document.getElementById("date").innerHTML=date+" "+month+", "+year;
+	var m_number;
+	var code_number;
+	var otp_number;
+
+	index();
+	
+	function index(){
+		var url = window.location.href;
+		var result = url.split("/");
+		var count = result.length;
+		code_number = result[count-1];
+		
+		var data_val = {"code":result[count-1]};
+		data=JSON.stringify(data_val);
+		// console.log(data);
+		var base_url = "http://192.168.0.165:8000/";
+		var url = base_url+"api/v1/transaction/get-status/"+result[count-1];
+		$.ajax({
+		   url: url,
+		//    data: data_val,
+		   type : "GET",
+		   contentType: "application/json; charset=utf-8",
+		   dataType : 'json',
+		   cache: false,
+		   crossDomain:true,
+		   success: function(data)
+		   {
+			if(data.status=="registered"){
+					window.location.href = base_url + "admin";
+			}
+			else{
+					$("#f1").show();
+				}
+		   },
+		   error: function(data)
+		   {  
+				$(".panel_error").show();
+		   }
+		});
+	}
+	
+	// to send mobile no. for OTP
+	$("#f1").submit(function(e) {
+		e.preventDefault();
+		var form = $(this);
+		var mobile_number = $("#mobile_number").val();
+		m_number=mobile_number;
+		if(mobile_number.length<10){
+			$(".mob_error").html("Please Enter a Valid Mobile No.");
+			return;
+		}
+		//var data = form.serialize();
+		var data = {"phone":mobile_number, "code":code_number};
+		data=JSON.stringify(data);
+		// console.log(data);
+		var base_url = "http://192.168.0.165:8000/";
+		var url = base_url+"api/v1/transaction/send-otp";
+		$.ajax({
+		   url: url,
+		   data: data,
+		   type : "POST",
+		   contentType: "application/json; charset=utf-8",
+		   dataType : 'json',
+		   cache: false,
+		   crossDomain:true,
+		   success: function(data)
+		   {
+				$("#f1").hide();
+				$("#f2").show();
+				$("#m_number").html(m_number);
+		   },
+		   error: function(data)
+		   {  
+				alert("Oops... Something went wrong.")
+		   }
+		});
+	});
+	
+	$("#f2").submit(function(e) {
+		e.preventDefault();
+		var form = $(this);
+		var otp = $("#otp").val();
+		otp_number = otp;
+		//var data = form.serialize();
+		var date_val = year + "-" + d.getMonth()+1 + "-" + date;
+		var data = {"code":code_number, "otp":otp, "sale_date":date_val};
+		data=JSON.stringify(data);
+		// console.log(data);
+		var base_url = "http://192.168.0.165:8000/";
+		var url = base_url+"api/v1/transaction/register";
+		$.ajax({
+		   url: url,
+		   data: data,
+		   type : "POST",
+		   contentType: "application/json; charset=utf-8",
+		   dataType : 'json',
+		   cache: false,
+		   crossDomain:true,
+		   success: function(data)
+		   {
+				if(data.msg=="registration successful"){
+					$('#register_success').modal('show');
+				}else {
+					$('#register_fail').modal('show');
+				}
+		   },
+		   error: function(data)
+		   {  
+				alert("Oops... Something went wrong.")
+		   }
+		});
+	});
+</script>
+</body>
+</html>

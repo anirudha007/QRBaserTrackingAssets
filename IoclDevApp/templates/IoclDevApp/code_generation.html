@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LERC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: auto}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	
+	.navbar_menu{
+		display:none;
+	}
+	#date{
+		color:#fff;
+		font-size:20px;
+		padding-top:10px;
+	}
+	footer{
+		position: fixed;
+		width: 100%;
+		bottom: 0px;
+		left: 0px;
+	}
+	footer p{
+		text-align: left;
+		margin: 0px;
+	}
+	#f2{
+		display:none;
+	}
+	#table{
+		display:none;
+	}
+	body{
+		padding-bottom:50px;
+	}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">LERC</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar_menu">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+			<!--<a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>-->
+			<p id="date"></p>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      &nbsp;
+    </div>
+    <div class="col-sm-8 text-left"> 
+		<div class="form-group">
+			<!-- <form id="f1" name="f1">
+				<br/>
+				<h2 class="text-center">Please Enter Phone Number</h2>
+				<br/><br/>
+				<div class="form-group">
+					<label for="code">Ph No:</label>
+					<input type="text" class="form-control" id="code">
+				</div>
+				<div class="form-group text-right">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form> -->
+			<form action="/submitotp/" method="post">
+				{% csrf_token %}
+				<br/>
+				<h2 class="text-center">Please Enter Phone Number</h2>
+				<br/><br/>
+				<label for="your_name">Ph No:</label>
+				<input id="your_name" type="text" name="phno" value="{{ phno }}">
+				<input type="submit" value="OK">
+			</form>
+			<div id="table">
+				<br/>
+				<h2 class="text-center">Table</h2>
+				<br/>
+				<table class="table table-bordered">
+					<thead>
+					  <tr>
+						<th>Code</th>
+						<th>Action</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+    </div>
+    <div class="col-sm-2 sidenav">
+      &nbsp;
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>ORG Branding</p>
+</footer>
+<script>
+	var html_data;
+	var d = new Date();
+    var date = d.getDate();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var monthArr = ["January", "February","March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    month = monthArr[month];
+    document.getElementById("date").innerHTML=date+" "+month+", "+year;
+	
+	show_table();
+	
+	function show_table(){
+		var data_val = 
+		{
+			"msg":"OK",
+			"status":true,
+			"data":[
+				{
+					"code":"C1"
+				},
+				{
+					"code":"C2"
+				},
+				{
+					"code":"C3"
+				},
+				{
+					"code":"C4"
+				}
+			]	
+		};
+		
+		// var base_url = "http://192.168.0.165:8000/";
+		// var url = base_url+"api/v1/transaction/get-all";
+		// $.ajax({
+		//    url: url,
+		//    type : "GET",
+		//    contentType: "application/json; charset=utf-8",
+		//    dataType : 'json',
+		//    cache: false,
+		//    crossDomain:true,
+		//    success: function(data)
+		//    {
+		// 		$(data).each(function(e){
+		// 			var dat = data[e];
+		// 			html_data = html_data + "<tr>" +
+		// 					"<td>"+dat.code+"</td>" +
+		// 					"<td><button class='btn btn-danger delete_code' id='"+dat.code+"'>Delete</button></td>" +
+		// 			+ "</tr>";
+		// 		});
+		// 		$("#table").find("table > tbody").html(html_data);
+		// 		$("#table").show();
+				
+		// 		$(".delete_code").click(function(){
+		// 			var code = $(this).attr("id");
+		// 			delete_code(code);
+		// 		});
+		//    },
+		//    error: function(data)
+		//    {  
+		// 	alert("Oops... Something went wrong.")
+		//    }
+		// });
+	}
+	
+	// function delete_code(code){
+	// 	var data_val = {"code":code};
+	// 	data=JSON.stringify(data_val);
+	// 	// console.log(data);
+	// 	var base_url = "http://192.168.0.165:8000/";
+	// 	var url = base_url+"api/v1/transaction/delete-by-code/"+code;
+	// 	$.ajax({
+	// 	   url: url,
+	// 	//    data: data,
+	// 	   type : "DELETE",
+	// 	   contentType: "application/json; charset=utf-8",
+	// 	   dataType : 'json',
+	// 	   cache: false,
+	// 	   crossDomain:true,
+	// 	   success: function(data)
+	// 	   {
+	// 			window.location.reload();
+	// 	   },
+	// 	   error: function(data)
+	// 	   {  
+	// 			alert("Oops... Something went wrong.")
+	// 	   }
+	// 	});
+	// }
+	
+	// $("#f1").submit(function(e) {
+	// 	e.preventDefault();
+	// 	var form = $(this);
+	// 	var code = $("#code").val();
+	// 	var date_value = year + "-" + d.getMonth()+1 + "-" + date;
+	// 	//var data = form.serialize();
+	// 	var data_val = {"phno":code, "Time":date_value};
+	// 	data=JSON.stringify(data_val);
+	// 	console.log(data);
+	// 	var base_url = "http://192.168.1.214:8000/";
+	// 	var url = base_url+"submitotp/";
+	// 	$.ajax({
+	// 	   url: url,
+	// 	   data: data,
+	// 	   type : "POST",
+	// 	   contentType: "application/json; charset=utf-8",
+	// 	   dataType : 'json',
+	// 	   cache: false,
+	// 	   crossDomain:true,
+	// 	   success: function(data)
+	// 	   {
+	// 			window.location.reload();
+	// 	   },
+	// 	   error: function(data)
+	// 	   {  
+	// 			alert("Oops... Something went wrong.")
+	// 	   }
+	// 	});
+		
+	// });
+	
+	
+</script>
+</body>
+</html>

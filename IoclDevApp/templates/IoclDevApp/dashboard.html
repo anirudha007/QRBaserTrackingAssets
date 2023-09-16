@@ -1,0 +1,73 @@
+{%  extends 'IoclDevApp/main.html' %}
+
+{% block content %}
+
+{%  include 'IoclDevApp/status.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-3">
+		<h5>CUSTOMERS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+
+			<table class="table table-sm">
+				<tr>
+					<th>Customer</th>
+					<th>Phone</th>
+				</tr>
+
+				{% for customer in customers %}
+					<tr>
+
+						<td>{{customer.name}}</td>
+						<td>{{customer.ph_no}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<h5>LAST 5 ENTRY</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Main Data Strime</a>
+			<table class="table table-sm">
+				<tr>
+                    <th>Customer Name</th>
+					<th>Device Info</th>
+					<th>Address</th>
+					<th>Contact no</th>
+					<th>Weight</th>
+					<th>gas lecage</th>
+					<th>paymentStatus</th>
+				</tr>
+
+				{% for MainFeed in MainFeeds %}
+					<tr>
+						<td>{{MainFeed.Customer}}</td>
+						<td>{{MainFeed.Device_Info}}</td>
+						<td>{{MainFeed.address}}</td>
+						<td>{{MainFeed.ph_no}}</td>
+						<td>{{MainFeed.weight}}</td>
+						<td>{{MainFeed.gasVal}}</td>
+						<td>{{MainFeed.paymentStatus}}</td>
+
+						<td><a href="">view</a></td>
+						<!-- <td><a href="">Delete</a></td> -->
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
+

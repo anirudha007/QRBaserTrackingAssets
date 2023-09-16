@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>LERC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: auto}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	
+	.navbar_menu{
+		display:none;
+	}
+	#date{
+		color:#fff;
+		font-size:20px;
+		padding-top:10px;
+	}
+	footer{
+		position: fixed;
+		width: 100%;
+		bottom: 0px;
+		left: 0px;
+	}
+	footer p{
+		text-align: left;
+		margin: 0px;
+	}
+	#f1,#f2,.panel_error{
+		display:none;
+	}
+	body{
+		padding-bottom:50px;
+	}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">LERC</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar_menu">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+			<!--<a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>-->
+			<p id="date"></p>
+		</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<a href="/submit_QR_request" class="btn btn-info" role="button">Genarate QR-Code</a>
+<div class="col-md-9">
+	<h5>LAST 5 ENTRY</h5>
+	<hr>
+	<div class="card card-body">
+		<a class="btn btn-primary  btn-sm btn-block" href="">QR Code Data Details</a>
+		<table class="table table-sm">
+			<tr>
+				<th>Customer Name</th>
+				<th>QR DATA</th>
+				<th>QR NO</th>
+				<th>Unic ID</th>
+				<th>Created Date</th>
+				<th>Image Path</th>
+			</tr>
+
+			{% for MainFeed in MainFeeds %}
+				<tr>
+					<td>{{MainFeed.CustomerName}}</td>
+					<td>{{MainFeed.QR_Data}}</td>
+					<td>{{MainFeed.Qr_no}}</td>
+					<td>{{MainFeed.uid}}</td>
+					<td>{{MainFeed.created_date}}</td>
+					<td>{{MainFeed.Imgpath}}</td>
+
+					<!-- <td><a href="">view</a></td> -->
+					<!-- <td><a href="">Delete</a></td> -->
+				</tr>
+			{% endfor %}
+
+	
+		</table>
+	</div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>ORG Branding</p>
+</footer>
+<script>
+	/*n =  new Date();
+	y = n.getFullYear();
+	m = n.getMonth() + 1;
+	d = n.getDate();
+	document.getElementById("date").innerHTML = m + "/" + d + "/" + y;*/
+	
+	var d = new Date();
+    var date = d.getDate();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var monthArr = ["January", "February","March", "April", "May", "June", "July", "August", "September", "October", "November","December"];
+    month = monthArr[month];
+    document.getElementById("date").innerHTML=date+" "+month+", "+year;
+	
+	</script>
+</body>
+</html>

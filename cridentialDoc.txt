@@ -1,0 +1,14 @@
+servername :- LAPTOP-K6PG74HC
+username:- sa
+password:- Paromita@19
+
+
+
+
+
+
+username :- Anirudha@007
+Password :-Iocl@2022
+
+username :- Shryashi@009
+Password :-Iocl@009
