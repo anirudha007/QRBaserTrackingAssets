@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
-from openai import ChatCompletion
-import openai
+# from openai import ChatCompletion
+# import openai
 from .  import sentOtp
 # import datetime
 from django.db.models.functions import Now
@@ -60,44 +60,44 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-def chatbot_view(request):
-    conversation = request.session.get('conversation', [])
+# def chatbot_view(request):
+#     conversation = request.session.get('conversation', [])
 
-    if request.method == 'POST':
-        user_input = request.POST.get('user_input')
+#     if request.method == 'POST':
+#         user_input = request.POST.get('user_input')
 
-        # Define your chatbot's predefined prompts
-        prompts = []
+#         # Define your chatbot's predefined prompts
+#         prompts = []
 
-        # Append user input to the conversation
-        if user_input:
-            conversation.append({"role": "user", "content": user_input})
+#         # Append user input to the conversation
+#         if user_input:
+#             conversation.append({"role": "user", "content": user_input})
 
-        # Append conversation messages to prompts
-        prompts.extend(conversation)
+#         # Append conversation messages to prompts
+#         prompts.extend(conversation)
 
-        # Set up and invoke the ChatGPT model
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=prompts,
-            api_key="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"
-        )
+#         # Set up and invoke the ChatGPT model
+#         response = openai.ChatCompletion.create(
+#             model="gpt-3.5-turbo",
+#             messages=prompts,
+#             api_key="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"
+#         )
         
-        # Extract chatbot replies from the response
+#         # Extract chatbot replies from the response
 
-        chatbot_replies = [message['message']['content'] for message in response['choices'] if message['message']['role'] == 'assistant']
+#         chatbot_replies = [message['message']['content'] for message in response['choices'] if message['message']['role'] == 'assistant']
 
-        # Append chatbot replies to the conversation
-        for reply in chatbot_replies:
-            conversation.append({"role": "assistant", "content": reply})
+#         # Append chatbot replies to the conversation
+#         for reply in chatbot_replies:
+#             conversation.append({"role": "assistant", "content": reply})
 
-        # Update the conversation in the session
-        request.session['conversation'] = conversation
+#         # Update the conversation in the session
+#         request.session['conversation'] = conversation
 
-        return render(request, 'IoclDevApp/chat.html', {'user_input': user_input, 'chatbot_replies': chatbot_replies, 'conversation': conversation})
-    else:
-        request.session.clear()
-        return render(request, 'IoclDevApp/chat.html', {'conversation': conversation})
+#         return render(request, 'IoclDevApp/chat.html', {'user_input': user_input, 'chatbot_replies': chatbot_replies, 'conversation': conversation})
+#     else:
+#         request.session.clear()
+#         return render(request, 'IoclDevApp/chat.html', {'conversation': conversation})
 
 
 # ==

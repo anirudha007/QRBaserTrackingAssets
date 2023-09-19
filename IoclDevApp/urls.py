@@ -13,7 +13,6 @@ urlpatterns = [
     path('login/', views.loginPage, name="login"),
     path('logout/', views.logoutUser, name="logout"),
     path('customer/<str:pk_test>/', views.customer, name="customer"),
-    path('chatbot_view/', views.chatbot_view, name="chatbot_view"),
     path('code/<str:pk_test>/', views.Landing_apge, name="Landing_apge"),
 
 ]
